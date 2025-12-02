@@ -1,0 +1,9 @@
+Django~=5.2.5
+djangorestframework~=3.16.1
+drf-spectacular~=0.28.0
+SQLAlchemy~=2.0.41
+serializers~=0.2.4
+django-filter~=25.2
+products~=2.0.1
+rest_framework_simplejwt
+python-decouple~=3.8
