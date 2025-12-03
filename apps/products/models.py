@@ -143,7 +143,7 @@ class ProductImage(models.Model):
         related_name='images',
         verbose_name=_('product')
     )
-    image = models.ImageField(_('image'), upload_to='products/gallery/')
+    image = models.ImageField(_('image'), upload_to='products/')
     alt_text = models.CharField(_('alt text'), max_length=200, blank=True)
     order = models.PositiveIntegerField(_('order'), default=0)
 
