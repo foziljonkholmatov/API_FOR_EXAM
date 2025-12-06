@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.text import slugify
@@ -37,7 +38,6 @@ class Category(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-
     def products_count(self):
         return self.products.filter(is_active=True).count()
 
@@ -65,7 +65,8 @@ class Product(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(0)],
         null=True,
-        blank=True
+        blank=True,
+        default=0
     )
 
     stock = models.IntegerField(
@@ -120,9 +121,11 @@ class Product(models.Model):
     def is_in_stock(self):
         return self.stock > 0
 
+    @property
     def is_on_sale(self):
         return self.discount_price and self.discount_price < self.price
 
+    @property
     def final_price(self):
         if self.is_on_sale:
             return self.discount_price
@@ -130,8 +133,9 @@ class Product(models.Model):
 
     @property
     def discount_percentage(self):
-        if not self.is_on_sale:
-            return 0
+        if not self.is_on_sale or not self.discount_price:
+            return Decimal("0")
+
         discount = self.price - self.discount_price
         return round((discount / self.price) * 100, 2)
 

@@ -72,16 +72,25 @@ class CartItem(models.Model):
     def __str__(self):
         return f'{self.quantity} * {self.product.name}'
 
+    def final_price(self):
+        if not self.is_on_sale or not self.discount_price:
+            return self.price
+        return self.discount_price
+
     @property
     def subtotal(self):
-        return self.product.final_price() * self.quantity
+        price = self.product.final_price or 0
+        qty = self.quantity or 0
+        return price * qty
+
+
 
     @property
     def is_available(self):
         return (
-            self.product.is_active and
-            self.product.is_in_stock and
-            self.product.stock >= self.quantity
+                self.product.is_active and
+                self.product.is_in_stock and
+                self.product.stock >= self.quantity
         )
 
     def can_increase_quantity(self, amount=1):

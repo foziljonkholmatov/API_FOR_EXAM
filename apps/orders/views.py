@@ -1,13 +1,12 @@
 from rest_framework import status, generics, filters
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_spectacular.utils import extend_schema, extend_schema_view
+from drf_spectacular.utils import extend_schema
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError
-from django.db.models import Sum, Count, Avg
+from django.db.models import Sum, Avg
 from datetime import timedelta
 from django.utils import timezone
 
@@ -23,7 +22,7 @@ from .serializers import (
 from .services import OrderService
 
 
-@extend_schema(tags=['Orders'])
+@extend_schema(tags=['Orders'], summary='List/Create Orders', description='Get user orders or create new order')
 class OrderListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]

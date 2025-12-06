@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
-    email = models.EmailField(_('email address'), unique=True)
+    email = models.EmailField(_('email address'), blank=True, null=True)
     phone = models.CharField(_('Phone number'), max_length=20, blank=True)
     address = models.TextField(_('Address'), blank=True)
     date_of_birth = models.DateField(_('date of birth'), null=True, blank=True)

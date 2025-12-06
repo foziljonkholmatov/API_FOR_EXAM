@@ -31,7 +31,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        validated_data.pop('password_confirm')  # modelga kerak emas
+        validated_data.pop('password_confirm')
         user = User.objects.create_user(
             username=validated_data.get('username'),
             password=validated_data.get('password'),
@@ -104,26 +104,25 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
     old_password = serializers.CharField(
         required=True,
         write_only=True,
-        style={
-            'input_type': 'password'
-        }
+        style={'input_type': 'password'}
     )
 
     new_password = serializers.CharField(
         required=True,
         write_only=True,
         validators=[validate_password],
-        style={
-            'input_type': 'password'
-        }
+        style={'input_type': 'password'}
     )
+
     new_password_confirm = serializers.CharField(
         required=True,
         write_only=True,
-        style={
-            'input_type': 'password'
-        }
+        style={'input_type': 'password'}
     )
+
+    class Meta:
+        model = User
+        fields = ['old_password', 'new_password', 'new_password_confirm']
 
     def validate(self, attrs):
         if attrs['new_password'] != attrs['new_password_confirm']:

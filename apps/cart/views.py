@@ -17,7 +17,7 @@ from .serializers import (
 from .services import CartService
 
 
-@extend_schema(tags=['Cart'])
+@extend_schema(tags=['Cart'], summary='Get/Add to Cart', description='Get user cart or add product to cart')
 class CartView(APIView):
     permission_classes = [IsAuthenticated]
 
