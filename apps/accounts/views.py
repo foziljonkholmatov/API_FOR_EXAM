@@ -52,7 +52,7 @@ class LoginView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        serializer = UserUpdateSerializer(
+        serializer = UserLoginSerializer(
             data=request.data,
             context={'request': request}
         )

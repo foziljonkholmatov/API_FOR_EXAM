@@ -102,8 +102,8 @@ class ProductCreateUpdateSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, attrs):
-        discount_price = attrs.get['discount_price']
-        price = attrs.get['price', getattr(self.instance, 'price', None)]
+        discount_price = attrs.get('discount_price')
+        price = attrs.get('price', getattr(self.instance, 'price', None))
 
         if discount_price and price:
             if discount_price >= price:
@@ -121,3 +121,4 @@ class ProductStockUpdateSerializer(serializers.ModelSerializer):
     def validate_stock(self, value):
         if value < 0:
             raise serializers.ValidationError(_('Stock cannot be negative'))
+        return value

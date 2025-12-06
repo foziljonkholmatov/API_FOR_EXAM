@@ -6,12 +6,11 @@ from apps.products.models import Product
 
 
 class CartItemSerializer(serializers.ModelSerializer):
-    product_id = serializers.IntegerField(source='product_id', read_only=True)
-    product_name = serializers.CharField(source='product_name', read_only=True)
-    product_slug = serializers.CharField(source='product_slug', read_only=True)
-    product_image = serializers.ImageField(source='product_image', read_only=True)
+    product_id = serializers.IntegerField( read_only=True)
+    product_name = serializers.CharField(read_only=True)
+    product_slug = serializers.CharField(read_only=True)
+    product_image = serializers.ImageField(read_only=True)
     product_price = serializers.DecimalField(
-        source='product_price',
         max_digits=10,
         decimal_places=2,
         read_only=True
@@ -57,8 +56,8 @@ class CartItemCreateSerializer(serializers.ModelSerializer):
         return value
 
     def validate(self, attrs):
-        product = attrs['products']
-        quantity = attrs['quantity', 1]
+        product = attrs.get('product')
+        quantity = attrs.get('quantity', 1)
 
         if quantity > product.stock:
             raise serializers.ValidationError({

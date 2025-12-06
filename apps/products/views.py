@@ -31,7 +31,7 @@ from .filters import ProductFilter, CategoryFilter
 )
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.annotate(
-        products_count=Count('products', fiter=Q(products__is_active=True))
+        products_count=Count('products', filter=Q(products__is_active=True))
     )
     permission_classes = [IsAdminOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]

@@ -37,7 +37,7 @@ class Category(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-    @property
+
     def products_count(self):
         return self.products.filter(is_active=True).count()
 
