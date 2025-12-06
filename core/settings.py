@@ -154,7 +154,10 @@ CORS_ALLOW_CREDENTIALS = True
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'API for exam. Group N68',
-    'DESCRIPTION': 'Exam for N68',
+    'DESCRIPTION': '''
+    Powered by → Xolmatov Foziljon
+    Examiner → SanjarbekAI
+    ''',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     'SERVE_PERMISSIONS': ['rest_framework.permissions.AllowAny'],
@@ -173,14 +176,7 @@ SPECTACULAR_SETTINGS = {
     'SCHEMA_PATH_PREFIX': '/api/',
     'SORT_OPERATIONS': True,
 
-    'CONTACT': {
-        'name': 'API Support',
-        'email': 'https://t.me/kholmatovfoziljon',
-    },
-    'LICENSE': {
-        'name': 'MIT License',
-        'url': 'https://opensource.org/licenses/MIT',
-    },
+
 
     'TAGS': [
         {'name': 'Auth', 'description': 'Authentication endpoints - Register, Login'},
