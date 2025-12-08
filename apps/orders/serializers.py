@@ -62,7 +62,6 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         fields = ['shipping_address', 'phone', 'notes']
 
     def validate(self, attrs):
-        # Validate shipping address
         if not attrs.get('shipping_address'):
             raise serializers.ValidationError({
                 'shipping_address': _('Shipping address is required.')
@@ -84,8 +83,6 @@ class OrderStatusUpdateSerializer(serializers.ModelSerializer):
     def validate_status(self, value):
         order = self.instance
         current_status = order.status
-
-        # Define valid status transitions
         valid_transitions = {
             Order.OrderStatus.PENDING: [
                 Order.OrderStatus.PROCESSING,
